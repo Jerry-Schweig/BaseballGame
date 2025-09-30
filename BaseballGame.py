@@ -98,4 +98,5 @@ print(field,"\n\n Now guest(batter) turn around and pitcher(home) hit enter when
 input()
 PitcherChoice()
 clear_terminal()
+#guohouhouihoihp
 
