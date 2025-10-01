@@ -204,8 +204,8 @@ def PitcherChoice():
         z = 1
         print(battersBox,"ok pitcher where would you like to throw?")
         pitcherDec = input()
-        y = input("Are you sure?(Y or N)\n")
         while z != 0:
+            y = input("Are you sure?(Y or N)\n")
             if y.upper() == "Y":
                 x = 0
                 z = 0
@@ -220,8 +220,8 @@ def BattersChoice():
         z = 1
         print (battersBox, "OK batter where do you think the pitcher threw?")
         batterDec = input()
-        y = input("Are you sure?(Y or N)\n")
         while z != 0:
+            y = input("Are you sure?(Y or N)\n")
             if y.upper() == "Y":
                 x = 0
                 z = 0
@@ -299,7 +299,7 @@ input("Click enter when you are ready\n")
 print("Now how this game works is the pitcher will decide where to throw a pitch. Then the batter will guess where the pitch will be.\nIf the batter guesses right they get a hit and a man on base. If they guess wrong they will get a strike, three strikes is an out and 3 outs switch sides")
 input("Hit enter when you are ready to conitinue")
 clear_terminal()
-while inning <= 9.5:
+while inning <= 1.5:
     input("\n\n Now batter turn around and pitcher hit enter when you are ready\n")
     PitcherChoice()
     clear_terminal()
@@ -310,6 +310,15 @@ while inning <= 9.5:
         Hit()
     else:
         Miss()
-
+print(f"""Game Over!!!!
+       Final score Home:{runsHome}
+                   Guest{runsGuest} """)
+if runsGuest < runsHome:
+    print("The Home team takes the win!")
+elif runsGuest > runsHome:
+    print("The Guest team shows up and wins!")
+else:
+    print("ANNNDD thats a tie.(sigh) I'm sure it was hard fought")
+print("\n\n\n\nAnd that was the game I hope you had fun! Run the program again to play again.(You go get that rematch :)")
 
 
