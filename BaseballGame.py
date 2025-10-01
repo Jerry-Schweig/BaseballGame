@@ -299,7 +299,7 @@ input("Click enter when you are ready\n")
 print("Now how this game works is the pitcher will decide where to throw a pitch. Then the batter will guess where the pitch will be.\nIf the batter guesses right they get a hit and a man on base. If they guess wrong they will get a strike, three strikes is an out and 3 outs switch sides")
 input("Hit enter when you are ready to conitinue")
 clear_terminal()
-while inning <= 1.5:
+while inning <= 9.5:
     input("\n\n Now batter turn around and pitcher hit enter when you are ready\n")
     PitcherChoice()
     clear_terminal()
