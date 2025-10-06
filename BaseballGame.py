@@ -1,5 +1,6 @@
 import os
 import time
+import random
 def clear_terminal():
     # Check the operating system and use the appropriate command
     if os.name == 'nt':  # For Windows
@@ -9,28 +10,32 @@ def clear_terminal():
 runsGuest = 0
 runsHome = 0
 battersBox = """
-          ______________________________________________________
-          |                |                   |                |
-          |                |                   |                |
-          |                |                   |                |
-          |        1       |        2          |        3       |
-          |                |                   |                |
-          |                |                   |                |
-          -------------------------------------------------------
-          |                |                   |                |
-          |                |                   |                |
-          |                |                   |                |
-          |        4       |         5         |        6       |
-          |                |                   |                |
-          |                |                   |                |
-          -------------------------------------------------------
-          |                |                   |                |
-          |                |                   |                |
-          |                |                   |                |
-          |        7       |         8         |        9       |
-          |                |                   |                |
-          |                |                   |                |
-          _______________________________________________________
+          +---------+ +---------+ +---------+ +---------+ +---------+
+          |         | |         | |         | |         | |         |
+          |    1    | |    6    | |   11    | |   16    | |   21    |
+          |         | |         | |         | |         | |         |
+          +---------+ +---------+ +---------+ +---------+ +---------+
+          +---------+ +---------+ +---------+ +---------+ +---------+
+          |         | |         | |         | |         | |         |
+          |    2    | |    7    | |   12    | |   17    | |   22    |
+          |         | |         | |         | |         | |         |
+          +---------+ +---------+ +---------+ +---------+ +---------+
+          +---------+ +---------+ +---------+ +---------+ +---------+
+          |         | |         | |         | |         | |         |
+          |    3    | |    8    | |   13    | |   18    | |   23    |
+          |         | |         | |         | |         | |         |
+          +---------+ +---------+ +---------+ +---------+ +---------+
+          +---------+ +---------+ +---------+ +---------+ +---------+
+          |         | |         | |         | |         | |         |
+          |    4    | |    9    | |   14    | |   19    | |   24    |
+          |         | |         | |         | |         | |         |
+          +---------+ +---------+ +---------+ +---------+ +---------+
+          +---------+ +---------+ +---------+ +---------+ +---------+
+          |         | |         | |         | |         | |         |
+          |    5    | |   10    | |   15    | |   20    | |   25    |
+          |         | |         | |         | |         | |         |
+          +---------+ +---------+ +---------+ +---------+ +---------+
+
 """
 field = f"""
      .....................................
@@ -229,13 +234,27 @@ def BattersChoice():
                 z = 0
             else:
                 print("Didn't understand. Type in the form of Y or N (not caps sensitive)")
+def CheckforUpDown():
+    def Corner():
+        check = random.randint(1,10)
+        if check <= 3:
+            return("Hit")
+        else:
+            return("Miss")
+    def NextTo():
+        check = random.randint(1,2)
+        if check == 1:
+            return("Hit")
+        else:
+            return("Miss")
+    
+    if batterDec % 5 == 0:
+        return("down")
+    if batterDec in [1,6,11,16,21]:
+        return("up")
 def CheckForHit(x,y):
     global hits
-    if x == y:
-        hits += 1
-        return("Hit")
-    else:
-        return("No Hit")
+    
 def Reset():
     global hits
     global currentField
@@ -288,6 +307,18 @@ def Miss():
     if outs == 3:
         print("Sorry Batter thats 3 outs time to switch")
         Reset()
+def GameOver():
+    print(f"""Game Over!!!!
+       Final score Home:{runsHome}
+                   Guest{runsGuest} """)
+    if runsGuest < runsHome:
+        print("The Home team takes the win!")
+    elif runsGuest > runsHome:
+        print("The Guest team shows up and wins!")
+    else:
+        print("ANNNDD thats a tie.(sigh) I'm sure it was hard fought")
+    print("\n\n\n\nAnd that was the game I hope you had fun! Run the program again to play again.(You go get that rematch :)")
+
 
 
 
@@ -310,15 +341,5 @@ while inning <= 9.5:
         Hit()
     else:
         Miss()
-print(f"""Game Over!!!!
-       Final score Home:{runsHome}
-                   Guest{runsGuest} """)
-if runsGuest < runsHome:
-    print("The Home team takes the win!")
-elif runsGuest > runsHome:
-    print("The Guest team shows up and wins!")
-else:
-    print("ANNNDD thats a tie.(sigh) I'm sure it was hard fought")
-print("\n\n\n\nAnd that was the game I hope you had fun! Run the program again to play again.(You go get that rematch :)")
-
+GameOver()
 
