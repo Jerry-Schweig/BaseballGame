@@ -247,7 +247,7 @@ def CheckforUpDown():
             return("Hit")
         else:
             return("Miss")
-    
+    # gggggggg
     if batterDec % 5 == 0:
         return("down")
     if batterDec in [1,6,11,16,21]:
