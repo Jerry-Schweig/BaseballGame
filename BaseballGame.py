@@ -299,13 +299,13 @@ def Miss():
     global strikes
     global outs
     strikes += 1
-    print(f"Batter you swung and missed .Thats strike {strikes}!")
+    print(f"Batter you swung and missed. That's strike {strikes}!")
     print(f"The Pitch threw {pitcherDec} and you swung {batterDec}.")
     if strikes == 3:
         outs += 1
-        print(f"Sorry Batter you struck out thats {outs} outs")
+        print(f"Sorry Batter you struck out that's {outs} outs")
     if outs == 3:
-        print("Sorry Batter thats 3 outs time to switch")
+        print("Sorry Batter that's 3 outs time to switch")
         Reset()
 def GameOver():
     print(f"""Game Over!!!!
