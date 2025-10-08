@@ -235,19 +235,31 @@ def BattersChoice():
             else:
                 print("Didn't understand. Type in the form of Y or N (not caps sensitive)")
 def CheckforUpDown():
-    def Corner():
+    if batterDec % 5 == 0:
+        return("down")
+    if batterDec in [1,6,11,16,21]:
+        return("up")
+def Where_is_it(bat, pit): #This will take the batter and pitcher decision and will return a number 1-9 of where the pitch is compared to the bat (5 is the middle of a 3-3 grid and refers to the bat and ball are on the same gridspace)
+    if CheckforUpDown == down: #don't do +1
+
+    if CheckforUpDown == up: #don't do -1
+
+    else:# Do it all
+
+def CheckForHit(x,y):#This Function Should Return What type of hit (HR,1,2,3)
+    global hits
+    def Corner():#Call this when the ball is on one of the corners to return whether its a hit
         check = random.randint(1,10)
         if check <= 3:
             return("Hit")
         else:
             return("Miss")
-    def NextTo():
+    def NextTo():#Call this when the ball is next to the bat (up,down,left,right) to return whether its a hit
         check = random.randint(1,2)
         if check == 1:
             return("Hit")
         else:
             return("Miss")
-    # gggggggg
     if batterDec % 5 == 0:
         return("down")
     if batterDec in [1,6,11,16,21]:
