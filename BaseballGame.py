@@ -207,10 +207,10 @@ def PitcherChoice():
     x = 1
     while x > 0:
         z = 1
-        print(battersBox,"ok pitcher where would you like to throw?")
+        print(battersBox,"Ok pitcher, where would you like to throw?")
         pitcherDec = input()
         while z != 0:
-            y = input("Are you sure?(Y or N)\n")
+            y = input("Are you sure? (Y or N)\n")
             if y.upper() == "Y":
                 x = 0
                 z = 0
@@ -223,10 +223,10 @@ def BattersChoice():
     x = 1   
     while x > 0:
         z = 1
-        print (battersBox, "OK batter where do you think the pitcher threw?")
+        print (battersBox, "Ok batter, where do you think the pitcher threw?")
         batterDec = input()
         while z != 0:
-            y = input("Are you sure?(Y or N)\n")
+            y = input("Are you sure? (Y or N)\n")
             if y.upper() == "Y":
                 x = 0
                 z = 0
@@ -260,8 +260,13 @@ def CheckForHit(x,y):#This Function Should Return What type of hit (HR,1,2,3)
             return("Hit")
         else:
             return("Miss")
-
-
+    if batterDec % 5 == 0:
+        return("down")
+    if batterDec in [1,6,11,16,21]:
+        return("up")
+def CheckForHit(x,y):
+    global hits
+    
 def Reset():
     global hits
     global currentField
@@ -285,7 +290,7 @@ def Hit():
     if hits == 1:
             currentField = fieldOne
             print(currentField)
-            print("The pitch got hit and now there's a runner at first")
+            print("The pitch got hit and now there's a runner at first!")
     elif hits == 2:
         currentField = fieldTwo
         print(currentField)
@@ -293,7 +298,7 @@ def Hit():
     elif hits == 3:
         currentField = fieldThree
         print(currentField)
-        print("The pitch got hit and now the bases are loaded")
+        print("The pitch got hit and now the bases are loaded!")
     elif hits >= 4:
         currentField = fieldThree
         print(currentField)
@@ -306,13 +311,13 @@ def Miss():
     global strikes
     global outs
     strikes += 1
-    print(f"Batter you swung and missed .Thats strike {strikes}!")
-    print(f"The Pitch threw {pitcherDec} and you swung {batterDec}.")
+    print(f"Batter you swung and missed. That's strike {strikes}!")
+    print(f"The pitcher threw {pitcherDec} and you swung {batterDec}.")
     if strikes == 3:
         outs += 1
-        print(f"Sorry Batter you struck out thats {outs} outs")
+        print(f"Sorry batter, you struck out. That's {outs} outs")
     if outs == 3:
-        print("Sorry Batter thats 3 outs time to switch")
+        print("Sorry batter, that's 3 outs. Time to switch!")
         Reset()
 def GameOver():
     print(f"""Game Over!!!!
@@ -323,8 +328,8 @@ def GameOver():
     elif runsGuest > runsHome:
         print("The Guest team shows up and wins!")
     else:
-        print("ANNNDD thats a tie.(sigh) I'm sure it was hard fought")
-    print("\n\n\n\nAnd that was the game I hope you had fun! Run the program again to play again.(You go get that rematch :)")
+        print("ANNNDD thats a tie. (sigh) I'm sure it was hard fought")
+    print("\n\n\n\nAnd that was the game! I hope you had fun! Run the program again to play again.(You go get that rematch :)")
 
 
 
