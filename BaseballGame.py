@@ -228,7 +228,7 @@ def BattersChoice():
         z = 1
         print (battersBox, "Ok batter, where do you think the pitcher threw?")
         batterDec = input()
-        if batterDec in boxArray:
+        if batterDec in boxArray or batterDec == "NS":
             while z != 0:
                 y = input("Are you sure? (Y or N)\n")
                 if y.upper() == "Y":
@@ -240,12 +240,19 @@ def BattersChoice():
                     print("Didn't understand. Type in the form of Y or N (not caps sensitive)")
         else:
             print("Didn't understand. Type a number 1-25")
+def NoSwing():#Need to Add text similar to Miss
+    global strikes
+    global balls
+    if pitcherDec in [7,8,9,12,13,14,17,18,19]:
+        strikes += 1
+    else:
+        balls += 1
 def CheckforUpDown():
     if batterDec % 5 == 0:
         return("down")
     if batterDec in [1,6,11,16,21]:
         return("up")
-def Where_is_it(bat, pit): #This will take the batter and pitcher decision and will return a number 1-9 of where the pitch is compared to the bat (5 is the middle of a 3-3 grid and refers to the bat and ball are on the same gridspace)
+def Where_is_it(): #This will take the batter and pitcher decision and will return a number 1-9 of where the pitch is compared to the bat (5 is the middle of a 3-3 grid and refers to the bat and ball are on the same gridspace)
     if CheckforUpDown() == "down": #don't do +1
         if pitcherDec == (batterDec - 6):
             return(1)
@@ -299,7 +306,7 @@ def Where_is_it(bat, pit): #This will take the batter and pitcher decision and w
             return(8)
         elif pitcherDec == (batterDec + 6):
             return(9)
-def CheckForHit(x,y):#This returns whether there is a hit or not
+def CheckForHit():#This returns whether there is a hit or not
     global hits
     def Corner():#Call this when the ball is on one of the corners to return whether its a hit
         check = random.randint(1,10)
@@ -337,7 +344,6 @@ def Hit():#This Function Should Return What type of hit (HR,1,2,3)
     global currentField
     global runsGuest
     global runsHome
-
 def Miss():
     global strikes
     global outs
@@ -381,9 +387,12 @@ while inning <= inn:
     BattersChoice()
     print("Here's what happened")
     time.sleep(1)
-    if CheckForHit(batterDec,pitcherDec) == "Hit":
-        Hit()
+    if batterDec != "NS":
+        if CheckForHit() == "Hit":
+            Hit()
+        else:
+            Miss()
     else:
-        Miss()
+        NoSwing()
 GameOver()
 
