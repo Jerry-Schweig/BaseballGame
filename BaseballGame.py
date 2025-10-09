@@ -299,7 +299,7 @@ def Where_is_it(bat, pit): #This will take the batter and pitcher decision and w
             return(8)
         elif pitcherDec == (batterDec + 6):
             return(9)
-def CheckForHit(x,y):#This Function Should Return What type of hit (HR,1,2,3)
+def CheckForHit(x,y):#This returns whether there is a hit or not
     global hits
     def Corner():#Call this when the ball is on one of the corners to return whether its a hit
         check = random.randint(1,10)
@@ -313,13 +313,10 @@ def CheckForHit(x,y):#This Function Should Return What type of hit (HR,1,2,3)
             return("Hit")
         else:
             return("Miss")
-    if batterDec % 5 == 0:
-        return("down")
-    if batterDec in [1,6,11,16,21]:
-        return("up")
-def CheckForHit(x,y):
-    global hits
-    
+    if Where_is_it() in [1,3,7,9]:
+        return(Corner())
+    else:
+        return(NextTo())
 def Reset():
     global hits
     global currentField
@@ -336,30 +333,11 @@ def Reset():
 
     time.sleep(5)
     clear_terminal()
-def Hit():
+def Hit():#This Function Should Return What type of hit (HR,1,2,3) 
     global currentField
     global runsGuest
     global runsHome
-    if hits == 1:
-            currentField = fieldOne
-            print(currentField)
-            print("The pitch got hit and now there's a runner at first!")
-    elif hits == 2:
-        currentField = fieldTwo
-        print(currentField)
-        print("The pitch got hit and now there's a runner on first and second!")
-    elif hits == 3:
-        currentField = fieldThree
-        print(currentField)
-        print("The pitch got hit and now the bases are loaded!")
-    elif hits >= 4:
-        currentField = fieldThree
-        print(currentField)
-        print("The pitch got hit and the runner at 3rd scored!")
-        if topBot == 0:
-            runsGuest +=1
-        else:
-            runsHome += 1
+
 def Miss():
     global strikes
     global outs
@@ -394,8 +372,9 @@ print("\n\n\n\n                 Welcome to Baseball Mania 1!\nChoose who is Gues
 input("Click enter when you are ready\n")
 print("Now how this game works is the pitcher will decide where to throw a pitch. Then the batter will guess where the pitch will be.\nIf the batter guesses right they get a hit and a man on base. If they guess wrong they will get a strike, three strikes is an out and 3 outs switch sides")
 input("Hit enter when you are ready to conitinue")
+inn = input("How many Innings do you want to play?")
 clear_terminal()
-while inning <= 9.5:
+while inning <= inn:
     input("\n\n Now batter turn around and pitcher hit enter when you are ready\n")
     PitcherChoice()
     clear_terminal()
