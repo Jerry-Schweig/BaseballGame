@@ -395,4 +395,3 @@ while inning <= inn:
     else:
         NoSwing()
 GameOver()
-
