@@ -199,9 +199,9 @@ runsHome = 0
 strikes = 0
 balls = 0
 outs = 0
+boxArray = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25]
 #_________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
 #Functions
-
 def PitcherChoice():
     global pitcherDec
     x = 1
@@ -209,15 +209,18 @@ def PitcherChoice():
         z = 1
         print(battersBox,"Ok pitcher, where would you like to throw?")
         pitcherDec = input()
-        while z != 0:
-            y = input("Are you sure? (Y or N)\n")
-            if y.upper() == "Y":
-                x = 0
-                z = 0
-            elif y.upper() == "N":
-                z = 0
-            else:
-                print("Didn't understand. Type in the form of Y or N (not caps sensitive)")
+        if pitcherDec in boxArray:
+            while z != 0:
+                y = input("Are you sure? (Y or N)\n")
+                if y.upper() == "Y":
+                    x = 0
+                    z = 0
+                elif y.upper() == "N":
+                    z = 0
+                else:
+                    print("Didn't understand. Type in the form of Y or N (not caps sensitive)")
+        else:
+            print("Didn't understand. Type a number 1-25")
 def BattersChoice():
     global batterDec
     x = 1   
@@ -225,27 +228,77 @@ def BattersChoice():
         z = 1
         print (battersBox, "Ok batter, where do you think the pitcher threw?")
         batterDec = input()
-        while z != 0:
-            y = input("Are you sure? (Y or N)\n")
-            if y.upper() == "Y":
-                x = 0
-                z = 0
-            elif y.upper() == "N":
-                z = 0
-            else:
-                print("Didn't understand. Type in the form of Y or N (not caps sensitive)")
+        if batterDec in boxArray:
+            while z != 0:
+                y = input("Are you sure? (Y or N)\n")
+                if y.upper() == "Y":
+                    x = 0
+                    z = 0
+                elif y.upper() == "N":
+                    z = 0
+                else:
+                    print("Didn't understand. Type in the form of Y or N (not caps sensitive)")
+        else:
+            print("Didn't understand. Type a number 1-25")
 def CheckforUpDown():
     if batterDec % 5 == 0:
         return("down")
     if batterDec in [1,6,11,16,21]:
         return("up")
 def Where_is_it(bat, pit): #This will take the batter and pitcher decision and will return a number 1-9 of where the pitch is compared to the bat (5 is the middle of a 3-3 grid and refers to the bat and ball are on the same gridspace)
-    if CheckforUpDown == down: #don't do +1
-
-    if CheckforUpDown == up: #don't do -1
-
+    if CheckforUpDown() == "down": #don't do +1
+        if pitcherDec == (batterDec - 6):
+            return(1)
+        elif pitcherDec == (batterDec - 1):
+            return(2)
+        elif pitcherDec == (batterDec + 4):
+            return(3)
+        elif pitcherDec == (batterDec - 5):
+            return(4)
+        elif pitcherDec == batterDec:
+            return(5)
+        elif pitcherDec == (batterDec + 5):
+            return(6)
+        elif pitcherDec == (batterDec - 4):
+            return(7)
+        elif pitcherDec == (batterDec + 6):
+            return(9)
+    elif CheckforUpDown() == "up": #don't do -1
+        if pitcherDec == (batterDec - 6):
+            return(1)
+        elif pitcherDec == (batterDec + 4):
+            return(3)
+        elif pitcherDec == (batterDec - 5):
+            return(4)
+        elif pitcherDec == batterDec:
+            return(5)
+        elif pitcherDec == (batterDec + 5):
+            return(6)
+        elif pitcherDec == (batterDec - 4):
+            return(7)
+        elif pitcherDec == (batterDec + 1):
+            return(8)
+        elif pitcherDec == (batterDec + 6):
+            return(9)
     else:# Do it all
-
+        if pitcherDec == (batterDec - 6):
+            return(1)
+        elif pitcherDec == (batterDec - 1):
+            return(2)
+        elif pitcherDec == (batterDec + 4):
+            return(3)
+        elif pitcherDec == (batterDec - 5):
+            return(4)
+        elif pitcherDec == batterDec:
+            return(5)
+        elif pitcherDec == (batterDec + 5):
+            return(6)
+        elif pitcherDec == (batterDec - 4):
+            return(7)
+        elif pitcherDec == (batterDec + 1):
+            return(8)
+        elif pitcherDec == (batterDec + 6):
+            return(9)
 def CheckForHit(x,y):#This Function Should Return What type of hit (HR,1,2,3)
     global hits
     def Corner():#Call this when the ball is on one of the corners to return whether its a hit
