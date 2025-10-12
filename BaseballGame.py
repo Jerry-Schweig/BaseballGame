@@ -349,6 +349,8 @@ outs = 0
 boxArray = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25]
 #_________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
 #Functions
+def MissHit (Result):
+    print("Foul Ball")
 def Reset():
     global inning
     global topBot
@@ -363,6 +365,18 @@ def Reset():
 
     time.sleep(5)
     clear_terminal()
+def Miss():#Handles if the batter misses the pitch
+    global strikes
+    global outs
+    strikes += 1
+    print(f"Batter you swung and missed. That's strike {strikes}!")
+    print(f"The pitcher threw {pitcherDec} and you swung {batterDec}.")
+    if strikes == 3:
+        outs += 1
+        print(f"Sorry batter, you struck out. That's {outs} outs")
+    if outs == 3:
+        print("Sorry batter, that's 3 outs. Time to switch!")
+        Reset()
 def PitcherChoice():
     global pitcherDec
     x = 1
@@ -466,6 +480,8 @@ def Where_is_it(): #This will take the batter and pitcher decision and will retu
             return(7)
         elif pitcherDec == (batterDec + 6):
             return(9)
+        else:
+            return("NH")
     elif CheckforUpDown() == "up": #don't do -1
         if pitcherDec == (batterDec - 6):
             return(1)
@@ -483,6 +499,8 @@ def Where_is_it(): #This will take the batter and pitcher decision and will retu
             return(8)
         elif pitcherDec == (batterDec + 6):
             return(9)
+        else:
+            return("NH")
     else:# Do it all
         if pitcherDec == (batterDec - 6):
             return(1)
@@ -502,6 +520,8 @@ def Where_is_it(): #This will take the batter and pitcher decision and will retu
             return(8)
         elif pitcherDec == (batterDec + 6):
             return(9)
+        else:
+            return("NH")
 def CheckForHit():#This returns whether there is a hit or not
     global hits
     def Corner():#Call this when the ball is on one of the corners to return whether its a hit
@@ -516,30 +536,97 @@ def CheckForHit():#This returns whether there is a hit or not
             return("Hit")
         else:
             return("Miss")
-    if Where_is_it() in [1,3,7,9]:
-        return(Corner())
+    if Where_is_it != "NH":
+        if Where_is_it() in [1,3,7,9]:
+            return(Corner())
+        else:
+            return(NextTo())
     else:
-        return(NextTo())
-def Hit():#This Function Should Return What type of hit (HR,1,2,3) 
+        Miss()
+def Hit():#This Function Should Return What type of hit (1,2,3,4(HomeRun)) 
     global currentField
     global runsGuest
     global runsHome
-def Miss():#Handles if the batter misses the pitch
-    global strikes
-    global outs
-    strikes += 1
-    print(f"Batter you swung and missed. That's strike {strikes}!")
-    print(f"The pitcher threw {pitcherDec} and you swung {batterDec}.")
-    if strikes == 3:
-        outs += 1
-        print(f"Sorry batter, you struck out. That's {outs} outs")
-    if outs == 3:
-        print("Sorry batter, that's 3 outs. Time to switch!")
-        Reset()
+    num = random.randint(1,1000)
+    if Where_is_it() in [1,3]:
+        if num <= 400:
+            MissHit("Foul")
+            return("MissHit")
+        elif num <= 700:
+            MissHit("FlyOut")
+            return("MissHit")
+        elif num <= 850:
+            return(1)
+        elif num <= 950:
+            return(2)
+        elif num <= 975:
+            return(3)
+        else:
+            return(4)
+    elif Where_is_it() == 2:
+        if num <= 200:
+            MissHit("Foul")
+            return("MissHit")
+        elif num <= 600:
+            MissHit("Flyout")
+            return("MissHit")
+        elif num <= 750:
+            return(1)
+        elif num <= 850:
+            return(2)
+        elif num <= 950:
+            return(3)
+        else:
+            return(4)
+    elif Where_is_it() in [4,6]:
+        if num <= 400:
+            MissHit("Foul")
+            return("MissHit")
+        elif num <= 700:
+            MissHit("Lineout")
+            return("MissHit")
+        elif num <= 800:
+            return(1)
+        elif num <= 900:
+            return(2)
+        elif num <= 975:
+            return(3)
+        else:
+            return(4)
+    elif Where_is_it() == 5:
+        if num <= 200:
+            MissHit("Lineout")
+            return("MissHit")
+        elif num <= 500:
+            return(1)
+        elif num <= 800:
+            return(2)
+        elif num <= 900:
+            return(3)
+        else:
+            return(4)
+    else:
+        if num <= 300:
+            MissHit("Foul")
+            return("MissHit")
+        elif num <= 700:
+            MissHit("Groundout")
+            return("MissHit")
+        elif num <= 950:
+            return(1)
+        else:
+            return(2)
 def WhatHappens(hit):#Takes hit type and handles the output and such
     if batterDec != "NS":
         if CheckForHit() == "Hit":
-            Hit()
+            if hit == 1:
+                print("Single")
+            elif hit == 2:
+                print("Double")
+            elif hit == 3:
+                print("Triple")
+            elif hit == 4:
+                print("HomeRun!")
         else:
             Miss()
     else:
