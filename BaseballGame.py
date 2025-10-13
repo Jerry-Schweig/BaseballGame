@@ -383,7 +383,7 @@ def PitcherChoice():
     while x > 0:
         z = 1
         print(battersBox,"Ok pitcher, where would you like to throw?")
-        pitcherDec = input()
+        pitcherDec = int(input())
         if pitcherDec in boxArray:
             while z != 0:
                 y = input("Are you sure? (Y or N)\n")
@@ -402,7 +402,7 @@ def BattersChoice():
     while x > 0:
         z = 1
         print (battersBox, "Ok batter, where do you think the pitcher threw?")
-        batterDec = input()
+        batterDec = int(input())
         if batterDec in boxArray or batterDec == "NS":
             while z != 0:
                 y = input("Are you sure? (Y or N)\n")
@@ -536,11 +536,13 @@ def CheckForHit():#This returns whether there is a hit or not
             return("Hit")
         else:
             return("Miss")
-    if Where_is_it != "NH":
+    if Where_is_it() != "NH":
         if Where_is_it() in [1,3,7,9]:
             return(Corner())
-        else:
+        elif Where_is_it() in [2,4,6,8]:
             return(NextTo())
+        else:
+            return("Hit")
     else:
         Miss()
 def Hit():#This Function Should Return What type of hit (1,2,3,4(HomeRun)) 
@@ -653,7 +655,7 @@ print("\n\n\n\n                 Welcome to Baseball Mania 1!\nChoose who is Gues
 input("Click enter when you are ready\n")
 print("Now how this game works is the pitcher will decide where to throw a pitch. Then the batter will guess where the pitch will be.\nIf the batter guesses right they get a hit and a man on base. If they guess wrong they will get a strike, three strikes is an out and 3 outs switch sides")
 input("Hit enter when you are ready to conitinue")
-inn = input("How many Innings do you want to play?")
+inn = int(input("How many Innings do you want to play?"))
 clear_terminal()
 while inning <= inn:
     input("\n\n Now batter turn around and pitcher hit enter when you are ready\n")
