@@ -416,7 +416,26 @@ def BattersChoice():
         else:
             print("Didn't understand. Type a number 1-25")
 def CheckField():#Made to check and prrint what field to print
-    print(field1st)
+    if baseTracker[1] == True:
+        if baseTracker[2] == True:
+            if baseTracker[3] == True:
+                print(fieldfull)
+            else:
+                print(field1st2nd)
+        elif baseTracker[3] == True:
+            print(field1st3rd)
+        else:
+            print(field1st)
+    elif baseTracker[2] == True:
+        if baseTracker[3] == True:
+            print(field2nd3rd)
+        else:
+            print(field2nd)
+    elif baseTracker[3] == True:
+        print(field3rd)
+    else:
+        print(fieldEmpty)
+    
 def Walk():#Handles Walks 
     print("Annnnnd... Thats a walk. Batter goes to first base")
     if baseTracker[1]:
