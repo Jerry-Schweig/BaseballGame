@@ -349,11 +349,10 @@ outs = 0
 boxArray = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25]
 #_________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
 #Functions
-def MissHit (Result):
-    print("Foul Ball")
 def Reset():
     global inning
     global topBot
+    global baseTracker
     for x in baseTracker.values():
         x = False
     inning += .5
@@ -365,6 +364,29 @@ def Reset():
 
     time.sleep(5)
     clear_terminal()
+def MissHit (result):
+    global outs
+    global strikes
+    if result == "Groundout":
+        outs += 1
+        print(f":O Batter you grounded out. The pitcher threw {pitcherDec}, you swung {batterDec}.")
+        if outs == 3:
+            Reset()
+    if result == "Foul":
+        if strikes < 2:
+            strikes += 1
+        print(f":O Batter you didn't hit the ball quite right. The pitcher threw {pitcherDec}, you swung {batterDec} and you fouled it off.")
+    if result == "Lineout":
+        outs += 1
+        print(f":O Batter you Hit the ball hard but lined out. The pitcher threw {pitcherDec}, you swung {batterDec}.")
+        if outs == 3:
+            Reset()
+    if result == "Flyout":
+        outs += 1
+        print(f":O Batter you hit the ball high but not far... it got caught. The pitcher threw {pitcherDec}, you swung {batterDec}.")
+        if outs == 3:
+            Reset()
+
 def Miss():#Handles if the batter misses the pitch
     global strikes
     global outs
@@ -435,7 +457,6 @@ def CheckField():#Made to check and prrint what field to print
         print(field3rd)
     else:
         print(fieldEmpty)
-    
 def Walk():#Handles Walks 
     print("Annnnnd... Thats a walk. Batter goes to first base")
     if baseTracker[1]:
@@ -563,7 +584,7 @@ def CheckForHit():#This returns whether there is a hit or not
         else:
             return("Hit")
     else:
-        Miss()
+        return("Miss")
 def Hit():#This Function Should Return What type of hit (1,2,3,4(HomeRun)) 
     global currentField
     global runsGuest
@@ -571,11 +592,9 @@ def Hit():#This Function Should Return What type of hit (1,2,3,4(HomeRun))
     num = random.randint(1,1000)
     if Where_is_it() in [1,3]:
         if num <= 400:
-            MissHit("Foul")
-            return("MissHit")
+            return("Foul")
         elif num <= 700:
-            MissHit("FlyOut")
-            return("MissHit")
+            return("FlyOut")
         elif num <= 850:
             return(1)
         elif num <= 950:
@@ -586,11 +605,9 @@ def Hit():#This Function Should Return What type of hit (1,2,3,4(HomeRun))
             return(4)
     elif Where_is_it() == 2:
         if num <= 200:
-            MissHit("Foul")
-            return("MissHit")
+            return("Foul")
         elif num <= 600:
-            MissHit("Flyout")
-            return("MissHit")
+            return("Flyout")
         elif num <= 750:
             return(1)
         elif num <= 850:
@@ -601,11 +618,9 @@ def Hit():#This Function Should Return What type of hit (1,2,3,4(HomeRun))
             return(4)
     elif Where_is_it() in [4,6]:
         if num <= 400:
-            MissHit("Foul")
-            return("MissHit")
+            return("Foul")
         elif num <= 700:
-            MissHit("Lineout")
-            return("MissHit")
+            return("Lineout")
         elif num <= 800:
             return(1)
         elif num <= 900:
@@ -616,8 +631,7 @@ def Hit():#This Function Should Return What type of hit (1,2,3,4(HomeRun))
             return(4)
     elif Where_is_it() == 5:
         if num <= 200:
-            MissHit("Lineout")
-            return("MissHit")
+            return("Lineout")
         elif num <= 500:
             return(1)
         elif num <= 800:
@@ -628,11 +642,9 @@ def Hit():#This Function Should Return What type of hit (1,2,3,4(HomeRun))
             return(4)
     else:
         if num <= 300:
-            MissHit("Foul")
-            return("MissHit")
+            return("Foul")
         elif num <= 700:
-            MissHit("Groundout")
-            return("MissHit")
+            return("Groundout")
         elif num <= 950:
             return(1)
         else:
@@ -640,14 +652,17 @@ def Hit():#This Function Should Return What type of hit (1,2,3,4(HomeRun))
 def WhatHappens(hit):#Takes hit type and handles the output and such
     if batterDec != "NS":
         if CheckForHit() == "Hit":
-            if hit == 1:
-                print("Single")
-            elif hit == 2:
-                print("Double")
-            elif hit == 3:
-                print("Triple")
-            elif hit == 4:
-                print("HomeRun!")
+            if hit not in ["Groundout","Foul","Lineout""Flyout"]:
+                if hit == 1:
+                    print("Single")
+                elif hit == 2:
+                    print("Double")
+                elif hit == 3:
+                    print("Triple")
+                elif hit == 4:
+                    print("HomeRun!")
+            else:
+                MissHit(hit)
         else:
             Miss()
     else:
