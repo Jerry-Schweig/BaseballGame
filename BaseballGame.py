@@ -369,6 +369,7 @@ def PitcherChoice():
     x = 1
     while x > 0:
         z = 1
+        print(f"There are {strikes}:strikes, {balls}:balls, and {outs}:outs.")
         print(battersBox,"Ok pitcher, where would you like to throw?")
         pitcherDec = int(input())
         if pitcherDec in boxArray:
@@ -388,6 +389,7 @@ def BattersChoice():
     x = 1   
     while x > 0:
         z = 1
+        print(f"There are {strikes}:strikes, {balls}:balls, and {outs}:outs.")
         print (battersBox, "Ok batter, where do you think the pitcher threw? You can put in 'NS' if you dont want to swing.")
         batterDec = input()
         if batterDec.upper() != "NS":
@@ -754,8 +756,6 @@ def WhatHappens(hit):#Takes hit type and handles the output and such
                 MissHit(hit)
         else:
             Miss()
-    else:
-        NoSwing()
 def GameOver():#Game over function
     print(f"""Game Over!!!!
        Final score Home:{runsHome}
@@ -787,5 +787,9 @@ while inning <= inn:
     BattersChoice()
     print("Here's what happened")
     time.sleep(1)
-    WhatHappens(TypeHit())
+    if batterDec != "NS":
+        WhatHappens(TypeHit())
+    else:
+        NoSwing()
+
 GameOver()
