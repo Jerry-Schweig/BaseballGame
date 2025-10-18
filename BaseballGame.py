@@ -388,8 +388,10 @@ def BattersChoice():
     x = 1   
     while x > 0:
         z = 1
-        print (battersBox, "Ok batter, where do you think the pitcher threw?")
-        batterDec = int(input())
+        print (battersBox, "Ok batter, where do you think the pitcher threw? You can put in 'NS' if you dont want to swing.")
+        batterDec = input()
+        if batterDec.upper() != "NS":
+            batterDec = int(batterDec)
         if batterDec in boxArray or batterDec == "NS":
             while z != 0:
                 y = input("Are you sure? (Y or N)\n")
@@ -432,6 +434,7 @@ def Miss():#Handles if the batter misses the pitch
     print(f"The pitcher threw {pitcherDec} and you swung {batterDec}.")
     if strikes == 3:
         outs += 1
+        strikes = 0
         print(f"Sorry batter, you struck out. That's {outs} outs")
     if outs == 3:
         print("Sorry batter, that's 3 outs. Time to switch!")
@@ -658,14 +661,14 @@ def Where_is_it(): #This will take the batter and pitcher decision and will retu
 def CheckForHit():#This returns whether there is a hit or not
     global hits
     def Corner():#Call this when the ball is on one of the corners to return whether its a hit
-        check = random.randint(1,10)
+        check = random.randint(1,6)
         if check <= 3:
             return("Hit")
         else:
             return("Miss")
     def NextTo():#Call this when the ball is next to the bat (up,down,left,right) to return whether its a hit
-        check = random.randint(1,2)
-        if check == 1:
+        check = random.randint(1,5)
+        if check <= 4:
             return("Hit")
         else:
             return("Miss")
