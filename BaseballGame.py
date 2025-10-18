@@ -580,6 +580,7 @@ def Walk():#Handles Walks
 def NoSwing():#Handles if the batter imputs NS
     global strikes
     global balls
+    global outs
     if pitcherDec in [7,8,9,12,13,14,17,18,19]:
         strikes += 1
         print(f"Batter you didn't swing but the pitcher threw a stike. That's strike {strikes}!")
