@@ -364,41 +364,6 @@ def Reset():
 
     time.sleep(5)
     clear_terminal()
-def MissHit (result):
-    global outs
-    global strikes
-    if result == "Groundout":
-        outs += 1
-        print(f":O Batter you grounded out. The pitcher threw {pitcherDec}, you swung {batterDec}.")
-        if outs == 3:
-            Reset()
-    if result == "Foul":
-        if strikes < 2:
-            strikes += 1
-        print(f":O Batter you didn't hit the ball quite right. The pitcher threw {pitcherDec}, you swung {batterDec} and you fouled it off.")
-    if result == "Lineout":
-        outs += 1
-        print(f":O Batter you Hit the ball hard but lined out. The pitcher threw {pitcherDec}, you swung {batterDec}.")
-        if outs == 3:
-            Reset()
-    if result == "Flyout":
-        outs += 1
-        print(f":O Batter you hit the ball high but not far... it got caught. The pitcher threw {pitcherDec}, you swung {batterDec}.")
-        if outs == 3:
-            Reset()
-
-def Miss():#Handles if the batter misses the pitch
-    global strikes
-    global outs
-    strikes += 1
-    print(f"Batter you swung and missed. That's strike {strikes}!")
-    print(f"The pitcher threw {pitcherDec} and you swung {batterDec}.")
-    if strikes == 3:
-        outs += 1
-        print(f"Sorry batter, you struck out. That's {outs} outs")
-    if outs == 3:
-        print("Sorry batter, that's 3 outs. Time to switch!")
-        Reset()
 def PitcherChoice():
     global pitcherDec
     x = 1
@@ -437,6 +402,40 @@ def BattersChoice():
                     print("Didn't understand. Type in the form of Y or N (not caps sensitive)")
         else:
             print("Didn't understand. Type a number 1-25")
+def MissHit (result):
+    global outs
+    global strikes
+    if result == "Groundout":
+        outs += 1
+        print(f":O Batter you grounded out. The pitcher threw {pitcherDec}, you swung {batterDec}.")
+        if outs == 3:
+            Reset()
+    if result == "Foul":
+        if strikes < 2:
+            strikes += 1
+        print(f":O Batter you didn't hit the ball quite right. The pitcher threw {pitcherDec}, you swung {batterDec} and you fouled it off.")
+    if result == "Lineout":
+        outs += 1
+        print(f":O Batter you Hit the ball hard but lined out. The pitcher threw {pitcherDec}, you swung {batterDec}.")
+        if outs == 3:
+            Reset()
+    if result == "Flyout":
+        outs += 1
+        print(f":O Batter you hit the ball high but not far... it got caught. The pitcher threw {pitcherDec}, you swung {batterDec}.")
+        if outs == 3:
+            Reset()
+def Miss():#Handles if the batter misses the pitch
+    global strikes
+    global outs
+    strikes += 1
+    print(f"Batter you swung and missed. That's strike {strikes}!")
+    print(f"The pitcher threw {pitcherDec} and you swung {batterDec}.")
+    if strikes == 3:
+        outs += 1
+        print(f"Sorry batter, you struck out. That's {outs} outs")
+    if outs == 3:
+        print("Sorry batter, that's 3 outs. Time to switch!")
+        Reset()
 def CheckField():#Made to check and prrint what field to print
     if baseTracker[1] == True:
         if baseTracker[2] == True:
@@ -457,6 +456,100 @@ def CheckField():#Made to check and prrint what field to print
         print(field3rd)
     else:
         print(fieldEmpty)
+def Hit(type):#Takes hit type and handles the output and what happens
+    runcounter = 0
+    if type == 1:
+        if baseTracker[3] == True:
+            if topBot == 0:
+                runsGuest += 1
+            else:
+                runsHome += 1
+            runcounter += 1
+            baseTracker[3] = False
+        if baseTracker[2] == True:
+            baseTracker[3] = True
+            baseTracker[2] = False
+        if baseTracker[1] == True:
+            baseTracker[2] = True
+            baseTracker[1] = False
+        baseTracker[1] = True
+        CheckField()
+        print(f"You hit a single! The pitcher threw {pitcherDec} and you swung {batterDec}. You earned {runcounter} runs!")
+    elif type == 2:
+        if baseTracker[3] == True:
+            if topBot == 0:
+                runsGuest += 1
+            else:
+                runsHome += 1
+            runcounter += 1
+            baseTracker[3] = False
+        if baseTracker[2] == True:
+            if topBot == 0:
+                runsGuest += 1
+            else:
+                runsHome += 1
+            runcounter += 1
+            baseTracker[2] = False
+        if baseTracker[1] == True:
+            baseTracker[3] = True
+            baseTracker[1] = False
+        baseTracker[2] = True
+        CheckField()
+        print(f"You hit a Double! The pitcher threw {pitcherDec} and you swung {batterDec}. You earned {runcounter} runs!")
+    elif type == 3:
+        if baseTracker[3] == True:
+            if topBot == 0:
+                runsGuest += 1
+            else:
+                runsHome += 1
+            runcounter += 1
+            baseTracker[3] = False
+        if baseTracker[2] == True:
+            if topBot == 0:
+                runsGuest += 1
+            else:
+                runsHome += 1
+            runcounter += 1
+            baseTracker[2] = False
+        if baseTracker[1] == True:
+            if topBot == 0:
+                runsGuest += 1
+            else:
+                runsHome += 1
+            runcounter += 1
+            baseTracker[1] = False
+        baseTracker[3] = True
+        CheckField()
+        print(f"You hit a Triple! The pitcher threw {pitcherDec} and you swung {batterDec}. You earned {runcounter} runs!")
+    elif type == 4:
+        if baseTracker[3] == True:
+            if topBot == 0:
+                runsGuest += 1
+            else:
+                runsHome += 1
+            runcounter += 1
+            baseTracker[3] = False
+        if baseTracker[2] == True:
+            if topBot == 0:
+                runsGuest += 1
+            else:
+                runsHome += 1
+            runcounter += 1
+            baseTracker[2] = False
+        if baseTracker[1] == True:
+            if topBot == 0:
+                runsGuest += 1
+            else:
+                runsHome += 1
+            runcounter += 1
+            baseTracker[1] = False
+        if topBot == 0:
+            runsGuest += 1
+        else:
+            runsHome += 1
+        runcounter += 1
+        CheckField()
+        print(f"You hit a HOMERUN! The pitcher threw {pitcherDec} and you swung {batterDec}. You earned {runcounter} runs!")
 def Walk():#Handles Walks 
     print("Annnnnd... Thats a walk. Batter goes to first base")
     if baseTracker[1]:
@@ -585,7 +678,7 @@ def CheckForHit():#This returns whether there is a hit or not
             return("Hit")
     else:
         return("Miss")
-def Hit():#This Function Should Return What type of hit (1,2,3,4(HomeRun)) 
+def TypeHit():#This Function Should Return What type of hit (1,2,3,4(HomeRun)) 
     global currentField
     global runsGuest
     global runsHome
@@ -653,14 +746,7 @@ def WhatHappens(hit):#Takes hit type and handles the output and such
     if batterDec != "NS":
         if CheckForHit() == "Hit":
             if hit not in ["Groundout","Foul","Lineout""Flyout"]:
-                if hit == 1:
-                    print("Single")
-                elif hit == 2:
-                    print("Double")
-                elif hit == 3:
-                    print("Triple")
-                elif hit == 4:
-                    print("HomeRun!")
+                Hit(hit)
             else:
                 MissHit(hit)
         else:
@@ -698,5 +784,5 @@ while inning <= inn:
     BattersChoice()
     print("Here's what happened")
     time.sleep(1)
-    WhatHappens(Hit())
+    WhatHappens(TypeHit())
 GameOver()
