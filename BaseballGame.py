@@ -1,5 +1,6 @@
 import os
 import time
+import random
 def clear_terminal():
     # Check the operating system and use the appropriate command
     if os.name == 'nt':  # For Windows
@@ -8,31 +9,36 @@ def clear_terminal():
         os.system('clear')
 runsGuest = 0
 runsHome = 0
+baseTracker = {1: False, 2: False, 3:False}
 battersBox = """
-          ______________________________________________________
-          |                |                   |                |
-          |                |                   |                |
-          |                |                   |                |
-          |        1       |        2          |        3       |
-          |                |                   |                |
-          |                |                   |                |
-          -------------------------------------------------------
-          |                |                   |                |
-          |                |                   |                |
-          |                |                   |                |
-          |        4       |         5         |        6       |
-          |                |                   |                |
-          |                |                   |                |
-          -------------------------------------------------------
-          |                |                   |                |
-          |                |                   |                |
-          |                |                   |                |
-          |        7       |         8         |        9       |
-          |                |                   |                |
-          |                |                   |                |
-          _______________________________________________________
+          +---------+ +---------+ +---------+ +---------+ +---------+
+          |         | |         | |         | |         | |         |
+          |    1    | |    6    | |   11    | |   16    | |   21    |
+          |         | |         | |         | |         | |         |
+          +---------+ +---------+ +---------+ +---------+ +---------+
+          +---------+ +---------+ +---------+ +---------+ +---------+
+          |         | |         | |         | |         | |         |
+          |    2    | |    7    | |   12    | |   17    | |   22    |
+          |         | |         | |         | |         | |         |
+          +---------+ +---------+ +---------+ +---------+ +---------+
+          +---------+ +---------+ +---------+ +---------+ +---------+
+          |         | |         | |         | |         | |         |
+          |    3    | |    8    | |   13    | |   18    | |   23    |
+          |         | |         | |         | |         | |         |
+          +---------+ +---------+ +---------+ +---------+ +---------+
+          +---------+ +---------+ +---------+ +---------+ +---------+
+          |         | |         | |         | |         | |         |
+          |    4    | |    9    | |   14    | |   19    | |   24    |
+          |         | |         | |         | |         | |         |
+          +---------+ +---------+ +---------+ +---------+ +---------+
+          +---------+ +---------+ +---------+ +---------+ +---------+
+          |         | |         | |         | |         | |         |
+          |    5    | |   10    | |   15    | |   20    | |   25    |
+          |         | |         | |         | |         | |         |
+          +---------+ +---------+ +---------+ +---------+ +---------+
+
 """
-field = f"""
+fieldEmpty = f"""
      .....................................
      .....................................
      ..SCOREBOARD:........................
@@ -71,11 +77,11 @@ field = f"""
      .....................................
      .....................................
 """
-fieldOne = f""".....................................
+field1st = f""".....................................
      .....................................
      ..SCOREBOARD:........................
-     ..Home: {runsHome}............................
-     ..Away: {runsGuest}............................
+     ..Home: {runsHome}...........................
+     ..Away: {runsGuest}..........................
      ..............~~~~~~~~~..............
      ...........~~~.........~~~...........
      ..........~~.............~~..........
@@ -108,15 +114,89 @@ fieldOne = f""".....................................
      .....................................
      .....................................
      ....................................."""
-fieldTwo = f""".....................................
+field2nd = f""".....................................
      .....................................
      ..SCOREBOARD:........................
-     ..Home: {runsHome}............................
-     ..Away: {runsGuest}............................
+     ..Home: {runsHome}...........................
+     ..Away: {runsGuest}..........................
      ..............~~~~~~~~~..............
      ...........~~~.........~~~...........
      ..........~~.............~~..........
      .........~................~.........
+     ........~......../\.........~........
+     .......~~.......|:)|........~~.......
+     .......~......... . .........~.......
+     ......~......... ... .........~......
+     ......~........ ..... ........~......
+     .....~........ ... ... ........~.....
+     .....~....... ...   ... .......~.....
+     .....~...... ...     ... ......~.....
+     .....~.../\ ...       .../\....~.....
+     ....~~..|  |..    P    .|  |...~~....
+     ..... ..... ...       ... ..... .....
+     ..... ...... ...     ... ...... .....
+     ..... ....... ...   ... ....... .....
+     ..... ........ ... ... ........ .....
+     ...... ........ ..... ........ ......
+     ...... ......... ... ......... ......
+     ....... ........./\ ......... .......
+     .......  .......|  |........  .......
+     ........ .................. ........
+     ......... ................ .........
+     ..........  .............  ..........
+     ............  .........   ...........
+     ..............         ..............
+     .....................................
+     .....................................
+     .....................................
+     .....................................
+     ....................................."""
+field3rd = f""".....................................
+     .....................................
+     ..SCOREBOARD:........................
+     ..Home: {runsHome}...........................
+     ..Away: {runsGuest}..........................
+     ..............~~~~~~~~~..............
+     ...........~~~.........~~~...........
+     ..........~~.............~~..........
+     .........~................~..........
+     ........~......../\.........~........
+     .......~~.......|  |........~~.......
+     .......~......... . .........~.......
+     ......~......... ... .........~......
+     ......~........ ..... ........~......
+     .....~........ ... ... ........~.....
+     .....~....... ...   ... .......~.....
+     .....~...... ...     ... ......~.....
+     .....~.../\ ...       .../\....~.....
+     ....~~..|:)|..    P    .|  |...~~....
+     ..... ..... ...       ... ..... .....
+     ..... ...... ...     ... ...... .....
+     ..... ....... ...   ... ....... .....
+     ..... ........ ... ... ........ .....
+     ...... ........ ..... ........ ......
+     ...... ......... ... ......... ......
+     ....... ........./\ ......... .......
+     .......  .......|  |........  .......
+     ........ .................. .........
+     ......... ................ ..........
+     ..........  .............  ..........
+     ............  .........   ...........
+     ..............         ..............
+     .....................................
+     .....................................
+     .....................................
+     .....................................
+     ....................................."""
+field1st2nd = f""".....................................
+     .....................................
+     ..SCOREBOARD:........................
+     ..Home: {runsHome}...........................
+     ..Away: {runsGuest}..........................
+     ..............~~~~~~~~~..............
+     ...........~~~.........~~~...........
+     ..........~~.............~~..........
+     .........~................~..........
      ........~......../\.........~........
      .......~~.......|:)|........~~.......
      .......~......... . .........~.......
@@ -135,8 +215,8 @@ fieldTwo = f""".....................................
      ...... ......... ... ......... ......
      ....... ........./\ ......... .......
      .......  .......|  |........  .......
-     ........ .................. ........
-     ......... ................ .........
+     ........ .................. .........
+     ......... ................ ..........
      ..........  .............  ..........
      ............  .........   ...........
      ..............         ..............
@@ -145,15 +225,89 @@ fieldTwo = f""".....................................
      .....................................
      .....................................
      ....................................."""
-fieldThree = f""".....................................
+field2nd3rd = f""".....................................
      .....................................
      ..SCOREBOARD:........................
-     ..Home: {runsHome}............................
-     ..Away: {runsGuest}............................
+     ..Home: {runsHome}...........................
+     ..Away: {runsGuest}..........................
      ..............~~~~~~~~~..............
      ...........~~~.........~~~...........
      ..........~~.............~~..........
-     .........~................~.........
+     .........~................~..........
+     ........~......../\.........~........
+     .......~~.......|:)|........~~.......
+     .......~......... . .........~.......
+     ......~......... ... .........~......
+     ......~........ ..... ........~......
+     .....~........ ... ... ........~.....
+     .....~....... ...   ... .......~.....
+     .....~...... ...     ... ......~.....
+     .....~.../\ ...       .../\....~.....
+     ....~~..|:)|..    P    .|  |...~~....
+     ..... ..... ...       ... ..... .....
+     ..... ...... ...     ... ...... .....
+     ..... ....... ...   ... ....... .....
+     ..... ........ ... ... ........ .....
+     ...... ........ ..... ........ ......
+     ...... ......... ... ......... ......
+     ....... ........./\ ......... .......
+     .......  .......|  |........  .......
+     ........ .................. .........
+     ......... ................ ..........
+     ..........  .............  ..........
+     ............  .........   ...........
+     ..............         ..............
+     .....................................
+     .....................................
+     .....................................
+     .....................................
+     ....................................."""
+field1st3rd = f""".....................................
+     .....................................
+     ..SCOREBOARD:........................
+     ..Home: {runsHome}...........................
+     ..Away: {runsGuest}..........................
+     ..............~~~~~~~~~..............
+     ...........~~~.........~~~...........
+     ..........~~.............~~..........
+     .........~................~..........
+     ........~......../\.........~........
+     .......~~.......|  |........~~.......
+     .......~......... . .........~.......
+     ......~......... ... .........~......
+     ......~........ ..... ........~......
+     .....~........ ... ... ........~.....
+     .....~....... ...   ... .......~.....
+     .....~...... ...     ... ......~.....
+     .....~.../\ ...       .../\....~.....
+     ....~~..|:)|..    P    .|:)|...~~....
+     ..... ..... ...       ... ..... .....
+     ..... ...... ...     ... ...... .....
+     ..... ....... ...   ... ....... .....
+     ..... ........ ... ... ........ .....
+     ...... ........ ..... ........ ......
+     ...... ......... ... ......... ......
+     ....... ........./\ ......... .......
+     .......  .......|  |........  .......
+     ........ .................. .........
+     ......... ................ ..........
+     ..........  .............  ..........
+     ............  .........   ...........
+     ..............         ..............
+     .....................................
+     .....................................
+     .....................................
+     .....................................
+     ....................................."""
+fieldfull = f""".....................................
+     .....................................
+     ..SCOREBOARD:........................
+     ..Home: {runsHome}...........................
+     ..Away: {runsGuest}..........................
+     ..............~~~~~~~~~..............
+     ...........~~~.........~~~...........
+     ..........~~.............~~..........
+     .........~................~..........
      ........~......../\.........~........
      .......~~.......|:)|........~~.......
      .......~......... . .........~.......
@@ -172,8 +326,8 @@ fieldThree = f""".....................................
      ...... ......... ... ......... ......
      ....... ........./\ ......... .......
      .......  .......|  |........  .......
-     ........ .................. ........
-     ......... ................ .........
+     ........ .................. .........
+     ......... ................ ..........
      ..........  .............  ..........
      ............  .........   ...........
      ..............         ..............
@@ -182,10 +336,10 @@ fieldThree = f""".....................................
      .....................................
      .....................................
      ....................................."""
-currentField = """"""
 batterDec = 0
 pitcherDec = 0
-hits = 0
+currentPitcher = ""
+currentBatter = ""
 inning = 0
 topBot = 0 #Top of the inning is 0 Bottom of the inning is 1
 #.5 will be top of the inning and 1 will be bottom
@@ -194,100 +348,429 @@ runsHome = 0
 strikes = 0
 balls = 0
 outs = 0
+boxArray = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25]
 #_________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
 #Functions
-
-def PitcherChoice():
-    global pitcherDec
-    x = 1
-    while x > 0:
-        z = 1
-        print(battersBox,"ok pitcher where would you like to throw?")
-        pitcherDec = input()
-        while z != 0:
-            y = input("Are you sure?(Y or N)\n")
-            if y.upper() == "Y":
-                x = 0
-                z = 0
-            elif y.upper() == "N":
-                z = 0
-            else:
-                print("Didn't understand. Type in the form of Y or N (not caps sensitive)")
-def BattersChoice():
-    global batterDec
-    x = 1   
-    while x > 0:
-        z = 1
-        print (battersBox, "OK batter where do you think the pitcher threw?")
-        batterDec = input()
-        while z != 0:
-            y = input("Are you sure?(Y or N)\n")
-            if y.upper() == "Y":
-                x = 0
-                z = 0
-            elif y.upper() == "N":
-                z = 0
-            else:
-                print("Didn't understand. Type in the form of Y or N (not caps sensitive)")
-def CheckForHit(x,y):
-    global hits
-    if x == y:
-        hits += 1
-        return("Hit")
-    else:
-        return("No Hit")
 def Reset():
-    global hits
-    global currentField
     global inning
     global topBot
-    hits = 0
-    currentField = field
+    global baseTracker
+    for x in baseTracker.values():
+        x = False
     inning += .5
     if topBot == 0:
         topBot += 1
     else:
         topBot = 0
     print("Alright thats 3 outs we're switching sides!")
+    x = currentBatter
+    currentBatter = currentPitcher
+    currentBatter = x
 
     time.sleep(5)
     clear_terminal()
-def Hit():
-    global currentField
-    global runsGuest
-    global runsHome
-    if hits == 1:
-            currentField = fieldOne
-            print(currentField)
-            print("The pitch got hit and now there's a runner at first")
-    elif hits == 2:
-        currentField = fieldTwo
-        print(currentField)
-        print("The pitch got hit and now there's a runner on first and second!")
-    elif hits == 3:
-        currentField = fieldThree
-        print(currentField)
-        print("The pitch got hit and now the bases are loaded")
-    elif hits >= 4:
-        currentField = fieldThree
-        print(currentField)
-        print("The pitch got hit and the runner at 3rd scored!")
-        if topBot == 0:
-            runsGuest +=1
+def PitcherChoice():
+    global pitcherDec
+    x = 1
+    while x > 0:
+        z = 1
+        print(f"There are {strikes}:strikes, {balls}:balls, and {outs}:outs.")
+        print(battersBox,f"Ok {currentPitcher}, where would you like to throw?")
+        pitcherDec = int(input())
+        if pitcherDec in boxArray:
+            while z != 0:
+                y = input("Are you sure? (Y or N)\n")
+                if y.upper() == "Y":
+                    x = 0
+                    z = 0
+                elif y.upper() == "N":
+                    z = 0
+                else:
+                    print("Didn't understand. Type in the form of Y or N (not caps sensitive)")
         else:
-            runsHome += 1
-def Miss():
+            print("Didn't understand. Type a number 1-25")
+def BattersChoice():
+    global batterDec
+    x = 1   
+    while x > 0:
+        z = 1
+        print(f"There are {strikes}:strikes, {balls}:balls, and {outs}:outs.")
+        print (battersBox, f"Ok {currentBatter}, where do you think the pitcher threw? You can put in 'NS' if you dont want to swing.")
+        batterDec = input()
+        if batterDec.upper() != "NS":
+            batterDec = int(batterDec)
+        if batterDec in boxArray or batterDec == "NS":
+            while z != 0:
+                y = input("Are you sure? (Y or N)\n")
+                if y.upper() == "Y":
+                    x = 0
+                    z = 0
+                elif y.upper() == "N":
+                    z = 0
+                else:
+                    print("Didn't understand. Type in the form of Y or N (not caps sensitive)")
+        else:
+            print("Didn't understand. Type a number 1-25")
+def MissHit (result):
+    global outs
+    global strikes
+    if result == "Groundout":
+        outs += 1
+        print(f":O Batter you grounded out. The pitcher threw {pitcherDec}, you swung {batterDec}.")
+        if outs == 3:
+            Reset()
+    if result == "Foul":
+        if strikes < 2:
+            strikes += 1
+        print(f":O Batter you didn't hit the ball quite right. The pitcher threw {pitcherDec}, you swung {batterDec} and you fouled it off.")
+    if result == "Lineout":
+        outs += 1
+        print(f":O Batter you Hit the ball hard but lined out. The pitcher threw {pitcherDec}, you swung {batterDec}.")
+        if outs == 3:
+            Reset()
+    if result == "Flyout":
+        outs += 1
+        print(f":O Batter you hit the ball high but not far... it got caught. The pitcher threw {pitcherDec}, you swung {batterDec}.")
+        if outs == 3:
+            Reset()
+def Miss():#Handles if the batter misses the pitch
     global strikes
     global outs
     strikes += 1
-    print(f"Batter you swung and missed .Thats strike {strikes}!")
-    print(f"The Pitch threw {pitcherDec} and you swung {batterDec}.")
+    print(f"Batter you swung and missed. That's strike {strikes}!")
+    print(f"The pitcher threw {pitcherDec} and you swung {batterDec}.")
     if strikes == 3:
         outs += 1
-        print(f"Sorry Batter you struck out thats {outs} outs")
+        strikes = 0
+        print(f"Sorry batter, you struck out. That's {outs} outs")
     if outs == 3:
-        print("Sorry Batter thats 3 outs time to switch")
+        print("Sorry batter, that's 3 outs. Time to switch!")
         Reset()
+def CheckField():#Made to check and prrint what field to print
+    if baseTracker[1] == True:
+        if baseTracker[2] == True:
+            if baseTracker[3] == True:
+                print(fieldfull)
+            else:
+                print(field1st2nd)
+        elif baseTracker[3] == True:
+            print(field1st3rd)
+        else:
+            print(field1st)
+    elif baseTracker[2] == True:
+        if baseTracker[3] == True:
+            print(field2nd3rd)
+        else:
+            print(field2nd)
+    elif baseTracker[3] == True:
+        print(field3rd)
+    else:
+        print(fieldEmpty)
+def Hit(type):#Takes hit type and handles the output and what happens
+    runcounter = 0
+    if type == 1:
+        if baseTracker[3] == True:
+            if topBot == 0:
+                runsGuest += 1
+            else:
+                runsHome += 1
+            runcounter += 1
+            baseTracker[3] = False
+        if baseTracker[2] == True:
+            baseTracker[3] = True
+            baseTracker[2] = False
+        if baseTracker[1] == True:
+            baseTracker[2] = True
+            baseTracker[1] = False
+        baseTracker[1] = True
+        CheckField()
+        print(f"You hit a single! The pitcher threw {pitcherDec} and you swung {batterDec}. You earned {runcounter} runs!")
+    elif type == 2:
+        if baseTracker[3] == True:
+            if topBot == 0:
+                runsGuest += 1
+            else:
+                runsHome += 1
+            runcounter += 1
+            baseTracker[3] = False
+        if baseTracker[2] == True:
+            if topBot == 0:
+                runsGuest += 1
+            else:
+                runsHome += 1
+            runcounter += 1
+            baseTracker[2] = False
+        if baseTracker[1] == True:
+            baseTracker[3] = True
+            baseTracker[1] = False
+        baseTracker[2] = True
+        CheckField()
+        print(f"You hit a Double! The pitcher threw {pitcherDec} and you swung {batterDec}. You earned {runcounter} runs!")
+    elif type == 3:
+        if baseTracker[3] == True:
+            if topBot == 0:
+                runsGuest += 1
+            else:
+                runsHome += 1
+            runcounter += 1
+            baseTracker[3] = False
+        if baseTracker[2] == True:
+            if topBot == 0:
+                runsGuest += 1
+            else:
+                runsHome += 1
+            runcounter += 1
+            baseTracker[2] = False
+        if baseTracker[1] == True:
+            if topBot == 0:
+                runsGuest += 1
+            else:
+                runsHome += 1
+            runcounter += 1
+            baseTracker[1] = False
+        baseTracker[3] = True
+        CheckField()
+        print(f"You hit a Triple! The pitcher threw {pitcherDec} and you swung {batterDec}. You earned {runcounter} runs!")
+    elif type == 4:
+        if baseTracker[3] == True:
+            if topBot == 0:
+                runsGuest += 1
+            else:
+                runsHome += 1
+            runcounter += 1
+            baseTracker[3] = False
+        if baseTracker[2] == True:
+            if topBot == 0:
+                runsGuest += 1
+            else:
+                runsHome += 1
+            runcounter += 1
+            baseTracker[2] = False
+        if baseTracker[1] == True:
+            if topBot == 0:
+                runsGuest += 1
+            else:
+                runsHome += 1
+            runcounter += 1
+            baseTracker[1] = False
+        if topBot == 0:
+            runsGuest += 1
+        else:
+            runsHome += 1
+        runcounter += 1
+        CheckField()
+        print(f"You hit a HOMERUN! The pitcher threw {pitcherDec} and you swung {batterDec}. You earned {runcounter} runs!")
+def Walk():#Handles Walks 
+    print("Annnnnd... Thats a walk. Batter goes to first base")
+    if baseTracker[1]:
+        if baseTracker[2]:
+            if baseTracker[3]:
+                if topBot == 0:
+                    runsGuest += 1
+                else:
+                    runsHome += 1
+                print("That walks in a run!!!")
+            else:
+                baseTracker[3] = True
+                print("That walks the bases loaded!")
+        else:
+            baseTracker[2] = True
+            print("That makes a runner on first and second")
+    else:
+        baseTracker[1] = True
+    CheckField()               
+def NoSwing():#Handles if the batter imputs NS
+    global strikes
+    global balls
+    global outs
+    if pitcherDec in [7,8,9,12,13,14,17,18,19]:
+        strikes += 1
+        print(f"Batter you didn't swing but the pitcher threw a stike. That's strike {strikes}!")
+        print(f"The pitcher threw {pitcherDec}")
+        if strikes == 3:
+            outs += 1
+            print(f"Sorry batter, you struck out. That's {outs} outs")
+        if outs == 3:
+            print("Sorry batter, that's 3 outs. Time to switch!")
+            Reset()
+    else:
+        balls += 1
+        print(f"sorry pitcher batter did not swing and you threw a ball. Thats ball {balls}")
+        if balls == 4:
+            Walk()      
+def CheckforUpDown():#Checks to see if the batter selected the top row or bottom row
+    if batterDec % 5 == 0:
+        return("down")
+    if batterDec in [1,6,11,16,21]:
+        return("up")
+def Where_is_it(): #This will take the batter and pitcher decision and will return a number 1-9 of where the pitch is compared to the bat (5 is the middle of a 3-3 grid and refers to the bat and ball are on the same gridspace)
+    if CheckforUpDown() == "down": #don't do +1
+        if pitcherDec == (batterDec - 6):
+            return(1)
+        elif pitcherDec == (batterDec - 1):
+            return(2)
+        elif pitcherDec == (batterDec + 4):
+            return(3)
+        elif pitcherDec == (batterDec - 5):
+            return(4)
+        elif pitcherDec == batterDec:
+            return(5)
+        elif pitcherDec == (batterDec + 5):
+            return(6)
+        elif pitcherDec == (batterDec - 4):
+            return(7)
+        elif pitcherDec == (batterDec + 6):
+            return(9)
+        else:
+            return("NH")
+    elif CheckforUpDown() == "up": #don't do -1
+        if pitcherDec == (batterDec - 6):
+            return(1)
+        elif pitcherDec == (batterDec + 4):
+            return(3)
+        elif pitcherDec == (batterDec - 5):
+            return(4)
+        elif pitcherDec == batterDec:
+            return(5)
+        elif pitcherDec == (batterDec + 5):
+            return(6)
+        elif pitcherDec == (batterDec - 4):
+            return(7)
+        elif pitcherDec == (batterDec + 1):
+            return(8)
+        elif pitcherDec == (batterDec + 6):
+            return(9)
+        else:
+            return("NH")
+    else:# Do it all
+        if pitcherDec == (batterDec - 6):
+            return(1)
+        elif pitcherDec == (batterDec - 1):
+            return(2)
+        elif pitcherDec == (batterDec + 4):
+            return(3)
+        elif pitcherDec == (batterDec - 5):
+            return(4)
+        elif pitcherDec == batterDec:
+            return(5)
+        elif pitcherDec == (batterDec + 5):
+            return(6)
+        elif pitcherDec == (batterDec - 4):
+            return(7)
+        elif pitcherDec == (batterDec + 1):
+            return(8)
+        elif pitcherDec == (batterDec + 6):
+            return(9)
+        else:
+            return("NH")
+def CheckForHit():#This returns whether there is a hit or not
+    global hits
+    def Corner():#Call this when the ball is on one of the corners to return whether its a hit
+        check = random.randint(1,6)
+        if check <= 3:
+            return("Hit")
+        else:
+            return("Miss")
+    def NextTo():#Call this when the ball is next to the bat (up,down,left,right) to return whether its a hit
+        check = random.randint(1,5)
+        if check <= 4:
+            return("Hit")
+        else:
+            return("Miss")
+    if Where_is_it() != "NH":
+        if Where_is_it() in [1,3,7,9]:
+            return(Corner())
+        elif Where_is_it() in [2,4,6,8]:
+            return(NextTo())
+        else:
+            return("Hit")
+    else:
+        return("Miss")
+def TypeHit():#This Function Should Return What type of hit (1,2,3,4(HomeRun)) 
+    global currentField
+    global runsGuest
+    global runsHome
+    num = random.randint(1,1000)
+    if Where_is_it() in [1,3]:
+        if num <= 400:
+            return("Foul")
+        elif num <= 700:
+            return("Flyout")
+        elif num <= 850:
+            return(1)
+        elif num <= 950:
+            return(2)
+        elif num <= 975:
+            return(3)
+        else:
+            return(4)
+    elif Where_is_it() == 2:
+        if num <= 200:
+            return("Foul")
+        elif num <= 600:
+            return("Flyout")
+        elif num <= 750:
+            return(1)
+        elif num <= 850:
+            return(2)
+        elif num <= 950:
+            return(3)
+        else:
+            return(4)
+    elif Where_is_it() in [4,6]:
+        if num <= 400:
+            return("Foul")
+        elif num <= 700:
+            return("Lineout")
+        elif num <= 800:
+            return(1)
+        elif num <= 900:
+            return(2)
+        elif num <= 975:
+            return(3)
+        else:
+            return(4)
+    elif Where_is_it() == 5:
+        if num <= 200:
+            return("Lineout")
+        elif num <= 500:
+            return(1)
+        elif num <= 800:
+            return(2)
+        elif num <= 900:
+            return(3)
+        else:
+            return(4)
+    else:
+        if num <= 300:
+            return("Foul")
+        elif num <= 700:
+            return("Groundout")
+        elif num <= 950:
+            return(1)
+        else:
+            return(2)
+def WhatHappens(hit):#Takes hit type and handles the output and such
+    if batterDec != "NS":
+        if CheckForHit() == "Hit":
+            if hit not in ["Groundout","Foul","Lineout""Flyout"]:
+                Hit(hit)
+            else:
+                MissHit(hit)
+        else:
+            Miss()
+def GameOver():#Game over function
+    print(f"""Game Over!!!!
+       Final score Home:{runsHome}
+                   Guest{runsGuest} """)
+    if runsGuest < runsHome:
+        print("The Home team takes the win!")
+    elif runsGuest > runsHome:
+        print("The Guest team shows up and wins!")
+    else:
+        print("ANNNDD thats a tie. (sigh) I'm sure it was hard fought")
+    print("\n\n\n\nAnd that was the game! I hope you had fun! Run the program again to play again.(You go get that rematch :)")
+
 
 
 
@@ -298,27 +781,44 @@ print("\n\n\n\n                 Welcome to Baseball Mania 1!\nChoose who is Gues
 input("Click enter when you are ready\n")
 print("Now how this game works is the pitcher will decide where to throw a pitch. Then the batter will guess where the pitch will be.\nIf the batter guesses right they get a hit and a man on base. If they guess wrong they will get a strike, three strikes is an out and 3 outs switch sides")
 input("Hit enter when you are ready to conitinue")
+currentBatter = input("Okay whoever is batting first input your name: ")
+currentPitcher = input("Now whoever is pitching first input your name: ")
+x = 1
+while x != 0:
+    inn = input("How many Innings do you want to play?: ")
+    z = 1
+    try:
+        inn = int(inn)
+        while z != 0:
+            y = input("Are you sure? (Y or N)\n")
+            if y.upper() == "Y":
+                if inn < 9 and inn> 1:
+                    x = 0
+                    z = 0
+                elif inn < 1:
+                    print("Try again (has to be more than one)")
+                elif inn > 9:
+                    check = input("can't do more than 9 innings")
+                    if check == "But I really want to :(":
+                        x = 0
+                        z = 0
+            elif y.upper() == "N":
+                z = 0
+            else:
+                print("Didn't understand. Type in the form of Y or N (not caps sensitive)")
+    except:
+        print("Try a number.")
 clear_terminal()
-while inning <= 9.5:
-    input("\n\n Now batter turn around and pitcher hit enter when you are ready\n")
+while inning <= inn:
+    input(f"\n\n Now {currentBatter} turn around and {currentPitcher} hit enter when you are ready\n")
     PitcherChoice()
     clear_terminal()
     BattersChoice()
     print("Here's what happened")
     time.sleep(1)
-    if CheckForHit(batterDec,pitcherDec) == "Hit":
-        Hit()
+    if batterDec != "NS":
+        WhatHappens(TypeHit())
     else:
-        Miss()
-print(f"""Game Over!!!!
-       Final score Home:{runsHome}
-                   Guest{runsGuest} """)
-if runsGuest < runsHome:
-    print("The Home team takes the win!")
-elif runsGuest > runsHome:
-    print("The Guest team shows up and wins!")
-else:
-    print("ANNNDD thats a tie.(sigh) I'm sure it was hard fought")
-print("\n\n\n\nAnd that was the game I hope you had fun! Run the program again to play again.(You go get that rematch :)")
+        NoSwing()
 
-
+GameOver()
