@@ -338,6 +338,8 @@ fieldfull = f""".....................................
      ....................................."""
 batterDec = 0
 pitcherDec = 0
+player1 = ""
+player2 = ""
 inning = 0
 topBot = 0 #Top of the inning is 0 Bottom of the inning is 1
 #.5 will be top of the inning and 1 will be bottom
@@ -779,10 +781,15 @@ print("\n\n\n\n                 Welcome to Baseball Mania 1!\nChoose who is Gues
 input("Click enter when you are ready\n")
 print("Now how this game works is the pitcher will decide where to throw a pitch. Then the batter will guess where the pitch will be.\nIf the batter guesses right they get a hit and a man on base. If they guess wrong they will get a strike, three strikes is an out and 3 outs switch sides")
 input("Hit enter when you are ready to conitinue")
+player1 = input("Okay whoever is batting first input your name")
+player2 = input("Now whoever is batting second input your name")
 inn = int(input("How many Innings do you want to play?"))
 clear_terminal()
 while inning <= inn:
-    input("\n\n Now batter turn around and pitcher hit enter when you are ready\n")
+    if topBot == 0:
+        input(f"\n\n Now {player1} turn around and {player2} hit enter when you are ready\n")
+    else:
+        input(f"\n\n Now {player2} turn around and {player1} hit enter when you are ready\n")
     PitcherChoice()
     clear_terminal()
     BattersChoice()
