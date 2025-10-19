@@ -338,8 +338,8 @@ fieldfull = f""".....................................
      ....................................."""
 batterDec = 0
 pitcherDec = 0
-player1 = ""
-player2 = ""
+currentPitcher = ""
+currentBatter = ""
 inning = 0
 topBot = 0 #Top of the inning is 0 Bottom of the inning is 1
 #.5 will be top of the inning and 1 will be bottom
@@ -363,6 +363,9 @@ def Reset():
     else:
         topBot = 0
     print("Alright thats 3 outs we're switching sides!")
+    x = currentBatter
+    currentBatter = currentPitcher
+    currentBatter = x
 
     time.sleep(5)
     clear_terminal()
@@ -372,7 +375,7 @@ def PitcherChoice():
     while x > 0:
         z = 1
         print(f"There are {strikes}:strikes, {balls}:balls, and {outs}:outs.")
-        print(battersBox,"Ok pitcher, where would you like to throw?")
+        print(battersBox,f"Ok {currentPitcher}, where would you like to throw?")
         pitcherDec = int(input())
         if pitcherDec in boxArray:
             while z != 0:
@@ -392,7 +395,7 @@ def BattersChoice():
     while x > 0:
         z = 1
         print(f"There are {strikes}:strikes, {balls}:balls, and {outs}:outs.")
-        print (battersBox, "Ok batter, where do you think the pitcher threw? You can put in 'NS' if you dont want to swing.")
+        print (battersBox, f"Ok {currentBatter}, where do you think the pitcher threw? You can put in 'NS' if you dont want to swing.")
         batterDec = input()
         if batterDec.upper() != "NS":
             batterDec = int(batterDec)
@@ -566,19 +569,16 @@ def Walk():#Handles Walks
                     runsGuest += 1
                 else:
                     runsHome += 1
-                    CheckField()
                 print("That walks in a run!!!")
             else:
                 baseTracker[3] = True
-                CheckField()
                 print("That walks the bases loaded!")
         else:
             baseTracker[2] = True
-            CheckField()
             print("That makes a runner on first and second")
     else:
         baseTracker[1] = True
-        CheckField()               
+    CheckField()               
 def NoSwing():#Handles if the batter imputs NS
     global strikes
     global balls
@@ -595,7 +595,7 @@ def NoSwing():#Handles if the batter imputs NS
             Reset()
     else:
         balls += 1
-        print(f"sorry pitcher batter did not swing and you threw a ball. Thats ball{balls}")
+        print(f"sorry pitcher batter did not swing and you threw a ball. Thats ball {balls}")
         if balls == 4:
             Walk()      
 def CheckforUpDown():#Checks to see if the batter selected the top row or bottom row
@@ -695,7 +695,7 @@ def TypeHit():#This Function Should Return What type of hit (1,2,3,4(HomeRun))
         if num <= 400:
             return("Foul")
         elif num <= 700:
-            return("FlyOut")
+            return("Flyout")
         elif num <= 850:
             return(1)
         elif num <= 950:
@@ -781,15 +781,12 @@ print("\n\n\n\n                 Welcome to Baseball Mania 1!\nChoose who is Gues
 input("Click enter when you are ready\n")
 print("Now how this game works is the pitcher will decide where to throw a pitch. Then the batter will guess where the pitch will be.\nIf the batter guesses right they get a hit and a man on base. If they guess wrong they will get a strike, three strikes is an out and 3 outs switch sides")
 input("Hit enter when you are ready to conitinue")
-player1 = input("Okay whoever is batting first input your name")
-player2 = input("Now whoever is batting second input your name")
-inn = int(input("How many Innings do you want to play?"))
+currentBatter = input("Okay whoever is batting first input your name: ")
+currentPitcher = input("Now whoever is pitching first input your name: ")
+inn = int(input("How many Innings do you want to play?: "))
 clear_terminal()
 while inning <= inn:
-    if topBot == 0:
-        input(f"\n\n Now {player1} turn around and {player2} hit enter when you are ready\n")
-    else:
-        input(f"\n\n Now {player2} turn around and {player1} hit enter when you are ready\n")
+    input(f"\n\n Now {currentBatter} turn around and {currentPitcher} hit enter when you are ready\n")
     PitcherChoice()
     clear_terminal()
     BattersChoice()
