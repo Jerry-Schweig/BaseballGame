@@ -783,7 +783,27 @@ print("Now how this game works is the pitcher will decide where to throw a pitch
 input("Hit enter when you are ready to conitinue")
 currentBatter = input("Okay whoever is batting first input your name: ")
 currentPitcher = input("Now whoever is pitching first input your name: ")
-inn = int(input("How many Innings do you want to play?: "))
+x = 1
+while x != 0:
+    inn = int(input("How many Innings do you want to play?: "))
+    z = 1
+    while z != 0:
+        y = input("Are you sure? (Y or N)\n")
+        if y.upper() == "Y":
+            if inn < 9 and inn> 1:
+                x = 0
+                z = 0
+            elif inn < 1:
+                print("Try again (has to be more than one)")
+            elif inn > 9:
+                check = input("can't do more than 9 innings")
+                if check == "But I really want to :(":
+                    x = 0
+                    z = 0
+        elif y.upper() == "N":
+            z = 0
+        else:
+            print("Didn't understand. Type in the form of Y or N (not caps sensitive)")
 clear_terminal()
 while inning <= inn:
     input(f"\n\n Now {currentBatter} turn around and {currentPitcher} hit enter when you are ready\n")
