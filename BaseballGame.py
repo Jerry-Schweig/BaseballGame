@@ -392,25 +392,28 @@ def PitcherChoice():
 def BattersChoice():
     global batterDec
     x = 1   
-    while x > 0:
-        z = 1
-        print(f"There are {strikes}:strikes, {balls}:balls, and {outs}:outs.")
-        print (battersBox, f"Ok {currentBatter}, where do you think the pitcher threw? You can put in 'NS' if you dont want to swing.")
-        batterDec = input()
-        if batterDec.upper() != "NS":
-            batterDec = int(batterDec)
-        if batterDec in boxArray or batterDec == "NS":
-            while z != 0:
-                y = input("Are you sure? (Y or N)\n")
-                if y.upper() == "Y":
-                    x = 0
-                    z = 0
-                elif y.upper() == "N":
-                    z = 0
-                else:
-                    print("Didn't understand. Type in the form of Y or N (not caps sensitive)")
-        else:
-            print("Didn't understand. Type a number 1-25")
+    try:
+        while x > 0:
+            z = 1
+            print(f"There are {strikes}:strikes, {balls}:balls, and {outs}:outs.")
+            print (battersBox, f"Ok {currentBatter}, where do you think the pitcher threw? You can put in 'NS' if you dont want to swing.")
+            batterDec = input()
+            if batterDec.upper() != "NS":
+                batterDec = int(batterDec)
+            if batterDec in boxArray or batterDec == "NS":
+                while z != 0:
+                    y = input("Are you sure? (Y or N)\n")
+                    if y.upper() == "Y":
+                        x = 0
+                        z = 0
+                    elif y.upper() == "N":
+                        z = 0
+                    else:
+                        print("Didn't understand. Type in the form of Y or N (not caps sensitive)")
+            else:
+                print("Didn't understand. Type a number 1-25")
+    except:
+        print("Didn't understand. Type a number 1-25")
 def MissHit (result):
     global outs
     global strikes
