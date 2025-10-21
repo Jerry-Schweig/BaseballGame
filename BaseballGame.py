@@ -467,6 +467,8 @@ def CheckField():#Made to check and prrint what field to print
     else:
         print(fieldEmpty)
 def Hit(type):#Takes hit type and handles the output and what happens
+    global strikes 
+    global balls
     runcounter = 0
     if type == 1:
         if baseTracker[3] == True:
@@ -560,6 +562,8 @@ def Hit(type):#Takes hit type and handles the output and what happens
         runcounter += 1
         CheckField()
         print(f"You hit a HOMERUN! The pitcher threw {pitcherDec} and you swung {batterDec}. You earned {runcounter} runs!")
+    strikes = 0
+    balls = 0
 def Walk():#Handles Walks 
     print("Annnnnd... Thats a walk. Batter goes to first base")
     if baseTracker[1]:
